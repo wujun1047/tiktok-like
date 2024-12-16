@@ -8,18 +8,31 @@ export interface PixabayVideo {
     videos: {
         large: {
             url: string
+            thumbnail: string
             width: number
             height: number
+            size: number
         }
         medium: {
             url: string
+            thumbnail: string
             width: number
             height: number
+            size: number
         }
         small: {
             url: string
+            thumbnail: string
             width: number
             height: number
+            size: number
+        }
+        tiny: {
+            url: string
+            thumbnail: string
+            width: number
+            height: number
+            size: number
         }
     }
     views: number
@@ -28,7 +41,6 @@ export interface PixabayVideo {
     comments: number
     user_id: number
     user: string
-    userImageURL: string
 }
 
 export interface PixabayResponse {

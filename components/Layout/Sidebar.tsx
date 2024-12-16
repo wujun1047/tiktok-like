@@ -18,6 +18,7 @@ const categories = [
 ];
 
 export default function Sidebar() {
+  // @ts-expect-error pathname is used in template literal
   const pathname = usePathname();
 
   return (
