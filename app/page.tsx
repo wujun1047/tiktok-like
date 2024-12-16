@@ -13,12 +13,13 @@ import {
 import VideoCard from '@/components/VideoCard'
 import SidebarItem from '@/components/SidebarItem'
 import CategoryTag from '@/components/CategoryTag'
-import { videos } from '@/lib/data'
+import { searchVideos } from '@/lib/pixabay'
 
-export default function HomePage() {
+export default async function HomePage() {
   const categories = [
     "推荐", "舞蹈", "音乐", "游戏", "美食", "旅行", "动漫", "宠物", "体育"
   ]
+  const videos = await searchVideos()
   
   return (
     <div className="flex h-screen bg-gray-100">

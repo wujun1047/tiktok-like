@@ -32,3 +32,15 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+/* 当视频模态框打开时禁用背景滚动 */
+body:has(.modal-open) {
+  overflow: hidden;
+}
+
+/* 视频播放器样式 */
+video {
+  max-height: 80vh;
+  width: 100%;
+  object-fit: contain;
+}
