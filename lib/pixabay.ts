@@ -53,14 +53,20 @@ export async function searchVideos(query: string = '', page: number = 1) {
         }
 
         const data: PixabayResponse = await response.json()
-        return data.hits.map(video => ({
-            id: video.id,
-            title: video.tags.split(',')[0],
-            videoUrl: video.videos.large.url,
-            coverUrl: video.pageURL.replace('videos', 'videos/thumbnails').replace('.mp4', '.jpg'),
-            likes: formatNumber(video.likes),
-            comments: formatNumber(video.comments)
-        }))
+
+        return data.hits.map(video => {
+            // 使用 small 视频和对应的缩略图
+            const videoData = video.videos.small
+
+            return {
+                id: video.id,
+                title: video.tags.split(',')[0],
+                videoUrl: videoData.url,
+                coverUrl: videoData.thumbnail, // 使用对应的缩略图
+                likes: formatNumber(video.likes),
+                comments: formatNumber(video.comments)
+            }
+        })
     } catch (error) {
         console.error('Error fetching videos:', error)
         return []
