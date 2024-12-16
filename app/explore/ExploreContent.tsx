@@ -3,7 +3,7 @@
 import { Search } from 'lucide-react'
 import VideoCard from '@/components/VideoCard'
 import CategoryTag from '@/components/CategoryTag'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 interface Video {
   id: number
@@ -24,7 +24,7 @@ export default function ExploreContent({ searchParams, initialVideos }: ExploreC
     "推荐", "舞蹈", "音乐", "游戏", "美食", "旅行", "动漫", "宠物", "体育"
   ]
   const currentCategory = searchParams.category || "推荐"
-  const [videos, setVideos] = useState<Video[]>(initialVideos)
+  const [videos] = useState<Video[]>(initialVideos)
 
   return (
     <>

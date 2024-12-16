@@ -10,11 +10,8 @@ import {
   ShoppingBag 
 } from 'lucide-react'
 import SidebarItem from '@/components/SidebarItem'
-import { usePathname } from 'next/navigation'
 
 export default function Sidebar() {
-  const pathname = usePathname()
-  
   return (
     <aside className="w-64 bg-white shadow-lg hidden md:block">
       <div className="p-4 space-y-6">
