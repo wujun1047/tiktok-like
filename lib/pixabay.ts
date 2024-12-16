@@ -1,6 +1,3 @@
-const PIXABAY_API_KEY = process.env.PIXABAY_API_KEY
-const PIXABAY_API_URL = 'https://pixabay.com/api/videos'
-
 export interface PixabayVideo {
     id: number
     pageURL: string
@@ -92,14 +89,4 @@ export async function searchVideos(category: string = '') {
         likes: hit.likes,
         comments: hit.comments
     }))
-}
-
-function formatNumber(num: number): string {
-    if (num >= 1000000) {
-        return (num / 1000000).toFixed(1) + 'M'
-    }
-    if (num >= 1000) {
-        return (num / 1000).toFixed(1) + 'k'
-    }
-    return num.toString()
 } 
