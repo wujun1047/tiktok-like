@@ -18,8 +18,13 @@ const categories = [
 ];
 
 export default function Sidebar() {
-  // @ts-expect-error pathname is used in template literal
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const pathname = usePathname();
+
+  const getLinkClassName = (itemPath: string) => {
+    const baseClass = "flex items-center gap-3 p-3 hover:bg-gray-100 rounded-lg";
+    return pathname === itemPath ? `${baseClass} text-primary` : baseClass;
+  };
 
   return (
     <div className="w-[240px] fixed left-0 top-0 bottom-0 bg-white border-r">
@@ -28,9 +33,7 @@ export default function Sidebar() {
           <Link
             key={item.path}
             href={item.path}
-            className={`flex items-center gap-3 p-3 hover:bg-gray-100 rounded-lg ${
-              pathname === item.path ? 'text-primary' : ''
-            }`}
+            className={getLinkClassName(item.path)}
           >
             <item.icon size={24} />
             <span>{item.label}</span>
@@ -43,9 +46,7 @@ export default function Sidebar() {
             <Link
               key={item.path}
               href={item.path}
-              className={`flex items-center gap-3 p-3 hover:bg-gray-100 rounded-lg ${
-                pathname === item.path ? 'text-primary' : ''
-              }`}
+              className={getLinkClassName(item.path)}
             >
               <item.icon size={24} />
               <span>{item.label}</span>
