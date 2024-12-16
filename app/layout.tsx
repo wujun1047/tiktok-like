@@ -8,9 +8,9 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "视频分享平台",
-  description: "短视频分享平台",
-};
+  title: '首页 - TikTok by Evan',
+  description: '短视频平台',
+}
 
 export default function RootLayout({
   children,
