@@ -40,37 +40,58 @@ export interface PixabayResponse {
     hits: PixabayVideo[]
 }
 
-export async function searchVideos(query: string = '', page: number = 1) {
-    try {
-        const response = await fetch(
-            `${PIXABAY_API_URL}/?key=${PIXABAY_API_KEY}&q=${encodeURIComponent(
-                query
-            )}&page=${page}&per_page=20`
-        )
+export async function searchVideos(category: string = '') {
+    const API_KEY = process.env.PIXABAY_API_KEY
+    const baseUrl = 'https://pixabay.com/api/videos/'
 
-        if (!response.ok) {
-            throw new Error('Failed to fetch videos')
-        }
-
-        const data: PixabayResponse = await response.json()
-
-        return data.hits.map(video => {
-            // 使用 small 视频和对应的缩略图
-            const videoData = video.videos.small
-
-            return {
-                id: video.id,
-                title: video.tags.split(',')[0],
-                videoUrl: videoData.url,
-                coverUrl: videoData.thumbnail, // 使用对应的缩略图
-                likes: formatNumber(video.likes),
-                comments: formatNumber(video.comments)
-            }
-        })
-    } catch (error) {
-        console.error('Error fetching videos:', error)
-        return []
+    // 根据类别设置搜索关键词
+    let q = ''
+    switch (category) {
+        case '舞蹈':
+            q = 'dance'
+            break
+        case '音乐':
+            q = 'music'
+            break
+        case '游戏':
+            q = 'game'
+            break
+        case '美食':
+            q = 'food'
+            break
+        case '旅行':
+            q = 'travel'
+            break
+        case '动漫':
+            q = 'animation'
+            break
+        case '宠物':
+            q = 'pet'
+            break
+        case '体育':
+            q = 'sports'
+            break
+        default:
+            q = ''
     }
+
+    const params = new URLSearchParams({
+        key: API_KEY!,
+        per_page: '12',
+        ...(q && { q }) // 只有当有搜索词时才添加 q 参数
+    })
+
+    const response = await fetch(`${baseUrl}?${params}`)
+    const data = await response.json()
+
+    return data.hits.map((hit: PixabayVideo) => ({
+        id: hit.id,
+        title: hit.tags,
+        coverUrl: hit.videos.medium.thumbnail,
+        videoUrl: hit.videos.medium.url,
+        likes: hit.likes,
+        comments: hit.comments
+    }))
 }
 
 function formatNumber(num: number): string {

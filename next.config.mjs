@@ -4,6 +4,14 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "via.placeholder.com",
+      },
+      {
+        protocol: "https",
+        hostname: "i.vimeocdn.com",
+      },
+      {
+        protocol: "https",
         hostname: "cdn.pixabay.com",
       },
     ],

@@ -1,18 +1,24 @@
+'use client'
+
+import Link from 'next/link'
+
 interface CategoryTagProps {
   text: string
   active?: boolean
+  href: string
 }
 
-export default function CategoryTag({ text, active = false }: CategoryTagProps) {
+export default function CategoryTag({ text, active = false, href }: CategoryTagProps) {
   return (
-    <button
-      className={`px-4 py-1 rounded-full text-sm font-medium whitespace-nowrap
+    <Link
+      href={href}
+      className={`px-3 py-1 rounded-full text-sm whitespace-nowrap transition-colors
         ${active 
           ? 'bg-primary text-white' 
-          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
         }`}
     >
       {text}
-    </button>
+    </Link>
   )
 } 
