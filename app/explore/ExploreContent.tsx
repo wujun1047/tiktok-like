@@ -1,20 +1,31 @@
+'use client'
+
 import { Search } from 'lucide-react'
 import VideoCard from '@/components/VideoCard'
 import CategoryTag from '@/components/CategoryTag'
-import { searchVideos } from '@/lib/pixabay'
-import { Video } from '@/types/video'
+import { useEffect, useState } from 'react'
 
-interface ExplorePageProps {
-  searchParams: { category?: string }
+interface Video {
+  id: number
+  title: string
+  coverUrl: string
+  videoUrl: string
+  likes: number
+  comments: number
 }
 
-export default async function ExplorePage({ searchParams }: ExplorePageProps) {
+interface ExploreContentProps {
+  searchParams: { category?: string }
+  initialVideos: Video[]
+}
+
+export default function ExploreContent({ searchParams, initialVideos }: ExploreContentProps) {
   const categories = [
     "推荐", "舞蹈", "音乐", "游戏", "美食", "旅行", "动漫", "宠物", "体育"
   ]
   const currentCategory = searchParams.category || "推荐"
-  const videos = await searchVideos(currentCategory === "推荐" ? "" : currentCategory)
-  
+  const [videos, setVideos] = useState<Video[]>(initialVideos)
+
   return (
     <>
       {/* 顶部导航栏 */}
@@ -57,14 +68,14 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
       {/* 视频网格 */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {videos.map((video: Video) => (
+          {videos.map((video) => (
             <VideoCard
               key={video.id}
               title={video.title}
               coverUrl={video.coverUrl}
               videoUrl={video.videoUrl}
-              likes={video.likes}
-              comments={video.comments}
+              likes={video.likes.toString()}
+              comments={video.comments.toString()}
             />
           ))}
         </div>

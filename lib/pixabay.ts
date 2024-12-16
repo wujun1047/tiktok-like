@@ -94,11 +94,11 @@ export async function searchVideos(category: string = '') {
     const data = await response.json()
 
     return data.hits.map((hit: PixabayVideo) => ({
-        id: hit.id,
+        id: hit.id.toString(),
         title: hit.tags,
         coverUrl: hit.videos.medium.thumbnail,
         videoUrl: hit.videos.medium.url,
-        likes: hit.likes,
-        comments: hit.comments
+        likes: hit.likes.toString(),
+        comments: hit.comments.toString()
     }))
 } 

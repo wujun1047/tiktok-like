@@ -2,6 +2,7 @@ import { Search, Upload, Bell } from 'lucide-react'
 import VideoCard from '@/components/VideoCard'
 import CategoryTag from '@/components/CategoryTag'
 import { searchVideos } from '@/lib/pixabay'
+import { Video } from '@/types/video'
 
 interface HomePageProps {
   searchParams: { category?: string }
@@ -75,7 +76,7 @@ export default async function HomePage({ searchParams }: HomePageProps) {
       {/* 视频网格 */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {videos.map((video) => (
+          {videos.map((video: Video) => (
             <VideoCard
               key={video.id}
               title={video.title}
