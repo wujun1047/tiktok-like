@@ -18,7 +18,6 @@ export default async function HomePage({ searchParams }: PageProps) {
   }
   console.log('HomePage currentCategory:', currentCategory)
   const videos = await searchVideos(currentCategory === "推荐" ? "" : currentCategory)
-  console.log('HomePage videos:', videos)
   return (
     <>
       {/* 顶部导航栏 */}
