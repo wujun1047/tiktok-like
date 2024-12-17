@@ -1,17 +1,21 @@
-import { PageProps } from '@/types/props'
 import { Search } from 'lucide-react'
 import VideoCard from '@/components/VideoCard'
 import CategoryTag from '@/components/CategoryTag'
 import { searchVideos } from '@/lib/pixabay'
 import { Video } from '@/types/video'
+import { PageProps } from '@/types/page'
 
-export default async function ExplorePage({ searchParams }: PageProps) {
+export default async function ExplorePage({ searchParams }: PageProps)
+{
   const categories = [
     "推荐", "舞蹈", "音乐", "游戏", "美食", "旅行", "动漫", "宠物", "体育"
   ]
-  const params = await searchParams
-  console.log('ExplorePage:', params)
-  const currentCategory = params?.category || "推荐"
+  let currentCategory = "推荐"
+  if (searchParams instanceof Promise) {
+    const params = await searchParams
+    currentCategory = params?.category || "推荐"
+  }
+  console.log('ExplorePage currentCategory:', currentCategory)
   const videos = await searchVideos(currentCategory === "推荐" ? "" : currentCategory)
   
   return (
