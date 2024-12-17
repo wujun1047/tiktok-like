@@ -3,7 +3,16 @@ const nextConfig = {
   // 确保配置正确
   reactStrictMode: true,
   images: {
-    domains: ["cdn.pixabay.com"], // 添加 pixabay 的域名到允许列表
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "pixabay.com",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.pixabay.com",
+      },
+    ],
   },
 };
 

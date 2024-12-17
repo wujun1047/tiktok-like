@@ -90,15 +90,27 @@ export async function searchVideos(category: string = '') {
         ...(q && { q }) // 只有当有搜索词时才添加 q 参数
     })
 
-    const response = await fetch(`${baseUrl}?${params}`)
-    const data = await response.json()
+    const url = `${baseUrl}?${params}`
 
-    return data.hits.map((hit: PixabayVideo) => ({
-        id: hit.id.toString(),
-        title: hit.tags,
-        coverUrl: hit.videos.medium.thumbnail,
-        videoUrl: hit.videos.medium.url,
-        likes: hit.likes.toString(),
-        comments: hit.comments.toString()
-    }))
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(`API error: ${response.status}`);
+        }
+
+        // 确保返回正确的数据结构
+        return data.hits.map((hit: PixabayVideo) => ({
+            id: hit.id.toString(),
+            title: hit.tags,
+            coverUrl: hit.videos.medium.thumbnail,
+            videoUrl: hit.videos.medium.url,
+            likes: hit.likes.toString(),
+            comments: hit.comments.toString()
+        }));
+    } catch (error) {
+        console.error('Pixabay API error:', error);
+        throw error;
+    }
 } 
